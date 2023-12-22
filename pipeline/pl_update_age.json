@@ -1,5 +1,5 @@
 {
-	"name": "pl_sql_demo",
+	"name": "pl_update_age",
 	"properties": {
 		"activities": [
 			{
@@ -19,6 +19,65 @@
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
 							"value": "@concat('Select * from dbo.emp where Name=',\n        '''',\n        pipeline().parameters.p_emp,\n        ''''\n        )",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sqldb_query",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_age",
+					"value": {
+						"value": "@string(\n    sub(int(formatDateTime(utcNow(),'yyyy')),\n        int(formatDateTime(activity('Lookup1').output.firstRow.Dob,'yyyy'))\n     )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Lookup1_copy1",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@concat('update dbo.emp set Age=',\n        variables('v_age'),\n        ' where Name=',\n        '''',\n        pipeline().parameters.p_emp,\n        '''; select 1'\n)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
