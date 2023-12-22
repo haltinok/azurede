@@ -1,0 +1,16 @@
+{
+	"name": "pl_sql_demo",
+	"properties": {
+		"parameters": {
+			"p_emp": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"v_age": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
