@@ -17,17 +17,15 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "@concat('Select * from dbo.emp where Name=',\n        '''',\n        pipeline().parameters.p_emp,\n        ''''\n        )",
-							"type": "Expression"
-						},
+						"sqlReaderQuery": "Select name, dob from dbo.emp",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "ds_sqldb_query",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
@@ -90,11 +88,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"p_emp": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"v_age": {
 				"type": "String"
