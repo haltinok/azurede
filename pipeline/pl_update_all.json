@@ -87,7 +87,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('update dbo.emp set Age=',\n        variables('v_age'),\n        ' where Name=',\n        '''',\n        pipeline().parameters.p_emp,\n        '''; select 1'\n)",
+										"value": "@concat('update dbo.emp set Age=',\n        variables('v_age'),\n        ' where Name=',\n        '''',\n        item().Name,\n        '''; select 1'\n)",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
