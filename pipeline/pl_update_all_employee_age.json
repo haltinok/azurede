@@ -110,31 +110,34 @@
 									"referenceName": "ds_sqldb_query",
 									"type": "DatasetReference"
 								},
-								"firstRowOnly": false
+								"firstRowOnly": true
+							}
+						},
+						{
+							"name": "set_output_result",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "update_employee",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "v_rows_processed",
+								"value": {
+									"value": "@activity('update_employee').output.firstRow.",
+									"type": "Expression"
+								}
 							}
 						}
 					]
-				}
-			},
-			{
-				"name": "set_output_result",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "ForEach1process_employee_records",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "v_rows_processed",
-					"value": ""
 				}
 			}
 		],
