@@ -11,6 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "emp_20230607.csv",
+				"folderPath": "landing/level1",
 				"fileSystem": "lab-adf"
 			},
 			"columnDelimiter": ",",
