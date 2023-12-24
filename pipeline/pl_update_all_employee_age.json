@@ -131,11 +131,18 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_rows_processed",
+					"value": ""
+				}
 			}
 		],
 		"variables": {
 			"v_age": {
+				"type": "String"
+			},
+			"v_rows_processed": {
 				"type": "String"
 			}
 		},
