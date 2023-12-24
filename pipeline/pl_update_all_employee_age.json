@@ -115,6 +115,23 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "set_output_result",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "ForEach1process_employee_records",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
 			}
 		],
 		"variables": {
