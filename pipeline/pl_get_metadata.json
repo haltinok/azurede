@@ -19,7 +19,7 @@
 						"referenceName": "ds_text_file",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "emp*"
+							"file_name": "emp_*"
 						}
 					},
 					"fieldList": [
