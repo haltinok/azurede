@@ -20,7 +20,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"file_name": "emp_*",
-							"folder_name": "landing/level1"
+							"folder_name": "landing"
 						}
 					},
 					"fieldList": [
