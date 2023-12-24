@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "landing/level1",
 				"fileSystem": "lab-adf"
 			},
 			"columnDelimiter": ",",
