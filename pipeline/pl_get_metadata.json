@@ -17,17 +17,17 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "ds_text_file",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "emp_*.csv"
+						}
 					},
 					"fieldList": [
-						"columnCount",
-						"contentMD5",
 						"exists",
 						"itemName",
 						"itemType",
 						"lastModified",
-						"size",
-						"structure"
+						"childItems"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
