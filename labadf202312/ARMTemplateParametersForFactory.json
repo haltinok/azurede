@@ -4,6 +4,15 @@
 	"parameters": {
 		"factoryName": {
 			"value": "labadf202312"
+		},
+		"ln_sqldb_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=hakanssqlserver.database.windows.net;Initial Catalog=labsqldb"
+		},
+		"AKV_properties_typeProperties_baseUrl": {
+			"value": "https://lab-akv-accesspolicy123.vault.azure.net/"
+		},
+		"ln_adls_labaccount202312_properties_typeProperties_url": {
+			"value": "https://labaccount202312.dfs.core.windows.net/"
 		}
 	}
 }
