@@ -36,7 +36,7 @@
 				}
 			},
 			{
-				"name": "If Condition1",
+				"name": "check_if_file_exists",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
@@ -46,7 +46,45 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@activity('get_file_metadata').output.exists",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "set_false",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "v_exists",
+								"value": "false"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "set_true",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "v_exists",
+								"value": "true"
+							}
+						}
+					]
+				}
 			}
 		],
 		"variables": {
