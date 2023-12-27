@@ -19,7 +19,7 @@
 						"referenceName": "ds_text_file",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "emp_20230607.csv",
+							"file_name": "emp_20230607.cs",
 							"folder_name": "landing/level1"
 						}
 					},
