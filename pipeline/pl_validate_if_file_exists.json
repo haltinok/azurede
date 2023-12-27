@@ -1,0 +1,88 @@
+{
+	"name": "pl_validate_if_file_exists",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_file_meta_data_config",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@concat('SELECT MAX(CASE WHEN property_name = ''container_name'' THEN property_value END) AS container_name, MAX(CASE WHEN property_name = ''folder_name'' THEN property_value END) AS folder_name, MAX(CASE WHEN property_name = ''file_name'' THEN property_value END) AS file_name FROM dbo.etl_metadata_config WHERE etl_job_name=''', pipeline().parameters.p_etl_job_name, '''')\n",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sqldb_query",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "get_all_files",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "get_file_meta_data_config",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_text_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": {
+								"value": "@activity('get_file_meta_data_config').output.firstRow.file_name",
+								"type": "Expression"
+							},
+							"folder_name": {
+								"value": "@activity('get_file_meta_data_config').output.firstRow.folder_name",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"p_etl_job_name": {
+				"type": "string",
+				"defaultValue": "load_emp_file"
+			}
+		},
+		"annotations": []
+	}
+}
