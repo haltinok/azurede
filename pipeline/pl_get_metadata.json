@@ -5,7 +5,14 @@
 			{
 				"name": "check_if_file_exists",
 				"type": "GetMetadata",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "validate_if_files_exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -19,7 +26,7 @@
 						"referenceName": "ds_text_file",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "emp_*",
+							"file_name": "emp*",
 							"folder_name": "landing"
 						}
 					},
@@ -29,11 +36,30 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
 					}
+				}
+			},
+			{
+				"name": "validate_if_files_exists",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_text_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "emp*",
+							"folder_name": "landing/level1"
+						}
+					},
+					"timeout": "0.12:00:00",
+					"sleep": 10
 				}
 			}
 		],
