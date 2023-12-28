@@ -13,7 +13,11 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://api.publicapis.org/entries",
+					"method": "GET"
+				}
 			}
 		],
 		"annotations": []
